@@ -15,7 +15,7 @@ class MyTheme {
 
     textTheme: const TextTheme(
       headline1: TextStyle(color: Colors.white , fontSize: 22, fontWeight: FontWeight.bold),
-      headline2: TextStyle(color: Blue , fontSize: 18, fontWeight: FontWeight.bold),
+      headline2: TextStyle(color: Blue , fontSize: 20, fontWeight: FontWeight.bold),
       headline3: TextStyle(color: Green , fontSize: 18, fontWeight: FontWeight.bold),
       headline4: TextStyle(color: Colors.black , fontSize: 15, fontWeight: FontWeight.bold),
       headline5: TextStyle(color: Colors.black , fontSize: 12, fontWeight: FontWeight.w400),

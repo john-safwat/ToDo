@@ -42,7 +42,7 @@ dependencies:
   syncfusion_flutter_datepicker: ^20.4.38
   intl: ^0.17.0
   date_picker_timeline: ^1.2.3
-
+  flutter_slidable: ^2.0.0
 
 
 dev_dependencies:
