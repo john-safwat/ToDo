@@ -3,12 +3,14 @@ class Task {
   String Title;
   String Discription;
   int Date;
+  bool isdone ;
 
   Task ({
     required this.id,
     required this.Title ,
     required this.Discription ,
-    required this.Date
+    required this.Date ,
+    this.isdone = false
   });
 
   Task.fromFireStore(Map<String , dynamic> data):this(
@@ -16,6 +18,7 @@ class Task {
     Title: data['Title'],
     Discription: data['Discription'] ,
     Date: data['Date'],
+    isdone: data['isdone'],
   );
 
   Map<String,dynamic>toFireStore(){
@@ -24,6 +27,7 @@ class Task {
       'Title':Title,
       'Discription':Discription,
       'Date':Date,
+      'isdone':isdone
     };
   }
 }

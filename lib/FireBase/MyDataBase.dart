@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code/FireBase/Model.dart';
+import 'package:code/utils/Dialogs_utils_class.dart';
 
 class MyDataBase {
 

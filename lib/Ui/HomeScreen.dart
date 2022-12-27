@@ -1,8 +1,12 @@
+import 'package:code/FireBase/MyDataBase.dart';
 import 'package:code/Theme/MyTheme.dart';
 import 'package:code/Ui/Taps/Settings_Tap.dart';
 import 'package:code/Ui/Taps/taskslist.dart';
+import 'package:code/utils/Dialogs_utils_class.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../FireBase/Model.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'Home Screen' ;
@@ -13,13 +17,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int Index = 0;
-  DateTime date = DateTime.now();
-  int datetime = 0;
+  DateTime date = DialogUtils.DateOnly(DateTime.now());
   List<Widget> taps = [Tasks_List_Tap(), Settings_Tap()];
+
+  TextEditingController Title = TextEditingController();
+  TextEditingController Details = TextEditingController();
+  final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context).size;
-    datetime = date.millisecondsSinceEpoch;
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
@@ -49,9 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: FloatingActionButton(
           onPressed: (){
             showTaskModalButtomSheet(context);
-            setState(() {
-
-            });
           },
           child:const Icon(Icons.add , color: Colors.white, size: 34,),
           backgroundColor: Theme.of(context).primaryColor,
@@ -88,7 +91,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return showModalBottomSheet(
         context: context,
         isScrollControlled: true,
-
         shape:const RoundedRectangleBorder(borderRadius: BorderRadius.only(
           topRight: Radius.circular(20),
           topLeft:  Radius.circular(20)
@@ -97,81 +99,131 @@ class _HomeScreenState extends State<HomeScreen> {
           return Container(
             height:  MediaQuery.of(context).size.height *0.7,
             padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text("Add Task" , style: Theme.of(context).textTheme.headline4!.copyWith(fontSize:24), textAlign: TextAlign.center,),
-                const SizedBox(height: 40,),
-                TextFormField(
-                  decoration: InputDecoration(
-                    contentPadding:const EdgeInsets.all(20),
-                    prefixIcon:const Icon(Icons.label) ,
-                    label:const Text('Task Lable'),
-                    enabledBorder:const OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Colors.black87, width: 1.0),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
-                      borderRadius:const BorderRadius.all(Radius.circular(5)),
+            child: Form(
+              key: formkey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text("Add Task" , style: Theme.of(context).textTheme.headline4!.copyWith(fontSize:24), textAlign: TextAlign.center,),
+                  const SizedBox(height: 40,),
+                  TextFormField(
+                    controller: Title,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if(value == null || value.isEmpty){
+                        return "Invalid Task Lable";
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      contentPadding:const EdgeInsets.all(20),
+                      prefixIcon:const Icon(Icons.label) ,
+                      label:const Text('Task Lable'),
+                      enabledBorder:const OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Colors.black87, width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                        borderRadius:const BorderRadius.all(Radius.circular(5)),
+                      ),
+                      focusedErrorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: MyTheme.Red, width: 2.0),
+                        borderRadius:const BorderRadius.all(Radius.circular(5)),
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: MyTheme.Red, width: 2.0),
+                        borderRadius:const BorderRadius.all(Radius.circular(5)),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 30,),
-                TextFormField(
-                  decoration: InputDecoration(
-                    contentPadding:const EdgeInsets.all(20),
-                    prefixIcon:const Icon(Icons.description) ,
-                    label:const Text('Task Details'),
-                    enabledBorder:const OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Colors.black87, width: 1.0),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
-                      borderRadius:const BorderRadius.all(Radius.circular(5)),
+                  const SizedBox(height: 30,),
+                  TextFormField(
+                    controller: Details,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if(value == null || value.isEmpty){
+                        return "Invalid Task Details";
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      contentPadding:const EdgeInsets.all(20),
+                      prefixIcon:const Icon(Icons.label) ,
+                      label:const Text('Task Lable'),
+                      enabledBorder:const OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Colors.black87, width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                        borderRadius:const BorderRadius.all(Radius.circular(5)),
+                      ),
+                      focusedErrorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: MyTheme.Red, width: 2.0),
+                        borderRadius:const BorderRadius.all(Radius.circular(5)),
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: MyTheme.Red, width: 2.0),
+                        borderRadius:const BorderRadius.all(Radius.circular(5)),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 30,),
-                Row(
-                  children: [
-                    Text("Pick Date" , style: Theme.of(context).textTheme.headline4!.copyWith(fontSize:24),),
-                  ],
-                ),
-                const SizedBox(height: 20,),
-
-                InkWell(
-                  child: Text("${DateFormat.yMd().format(date)}",style: Theme.of(context).textTheme.headline2,textAlign: TextAlign.center,),
-                  onTap: ()async{
-                    setState(() {ShowDatePicker();});
-                  },
-                ),
-                const Spacer(),
-                ElevatedButton(
-                  onPressed:(){},
-
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  const SizedBox(height: 30,),
+                  Row(
                     children: [
-                      Icon(Icons.done_rounded , color: Colors.white,),
-                      const SizedBox(width: 10,),
-                      Text("Add" , style: Theme.of(context).textTheme.headline1?.copyWith(fontWeight: FontWeight.w500),)
+                      Text("Pick Date" , style: Theme.of(context).textTheme.headline4!.copyWith(fontSize:24),),
                     ],
                   ),
+                  const SizedBox(height: 20,),
+                  GestureDetector(
+                    child: Text("${DateFormat.yMd().format(date)}",style: Theme.of(context).textTheme.headline2,textAlign: TextAlign.center,),
+                    onTap: ()async{
 
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
-                    padding: MaterialStateProperty.all(EdgeInsets.all(10)),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)))
+                    },
                   ),
-                ),
-              ],
+                  const Spacer(),
+                  ElevatedButton(
+                    onPressed:()async{
+                      if(formkey.currentState!.validate()){
+                        DialogUtils.showMessage(
+                          message: "Are You Sure You Want to Add",
+                          context: context,
+                          posActiontitle: "Yes",
+                          posAction: () async{
+                            DialogUtils.showDialogeMessage(Message: "Loading....", context: context);
+                            Task task = Task(id: "", Title: Title.text, Discription: Details.text, Date: date.millisecondsSinceEpoch);
+                            await MyDataBase.insertintodatabase(task);
+                            DialogUtils.hideDialogMessage(context: context);
+                            Navigator.pop(context);
+                          },
+                          nigActiontitle: "No",
+                        );
+                      }
+                    },
+
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.done_rounded , color: Colors.white,),
+                        const SizedBox(width: 10,),
+                        Text("Add" , style: Theme.of(context).textTheme.headline1?.copyWith(fontWeight: FontWeight.w500),)
+                      ],
+                    ),
+
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
+                        padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)))
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },

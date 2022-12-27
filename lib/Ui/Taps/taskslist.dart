@@ -1,4 +1,5 @@
 import 'package:code/FireBase/Model.dart';
+import 'package:code/FireBase/MyDataBase.dart';
 import 'package:code/Ui/Taps/TaskWidget.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +38,23 @@ class Tasks_List_Tap extends StatelessWidget {
           ),
           const SizedBox(height: 10,),
           Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) => TaskWidget(task: task),
-              itemCount: 100,
-            )
+            child: StreamBuilder(
+              stream: MyDataBase.getTaskDataStream(),
+              builder: (context, snapshot) {
+                if(snapshot.connectionState == ConnectionState.waiting){
+                  return CircularProgressIndicator();
+                }
+                var tasks = snapshot.data?.docs.map((doc) => doc.data()).toList();
+                if (snapshot.hasError) {
+                  return Center(child: Text("Loading Error"),);
+                }else {
+                  return ListView.builder(
+                    itemBuilder: (context, index) => TaskWidget(task: tasks![index]),
+                    itemCount: tasks!.length,
+                  );
+                }
+              },
+            ),
           )
         ],
       ),
