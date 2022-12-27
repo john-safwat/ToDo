@@ -2,10 +2,12 @@ import 'package:code/FireBase/MyDataBase.dart';
 import 'package:code/Theme/MyTheme.dart';
 import 'package:code/Ui/Taps/Settings_Tap.dart';
 import 'package:code/Ui/Taps/taskslist.dart';
+import 'package:code/provider/themeprovider.dart';
 import 'package:code/utils/Dialogs_utils_class.dart';
 import 'package:code/utils/extention.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../FireBase/Model.dart';
 
@@ -20,18 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
   int Index = 0;
   DateTime date = DateTime.now().DateOnly(DateTime.now());
   List<Widget> taps = [Tasks_List_Tap(), Settings_Tap()];
-
   TextEditingController Title = TextEditingController();
   TextEditingController Details = TextEditingController();
   final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var mediaquery = MediaQuery.of(context).size;
+    var themes = Provider.of<themeprovider>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
-        title: Text("  To Do List" , style: Theme.of(context).textTheme.headline1,),
-        elevation: 0,
+        title: Text("  To Do List" ),
       ),
       body: Stack(
         children: [
@@ -50,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: Container(
         decoration: BoxDecoration(
-          border: Border.all(width: 8 , color: Colors.white),
+          border: Border.all(width: 8 , color: themes.isdark() ? MyTheme.LightBlack : Colors.white,),
           borderRadius: BorderRadius.circular(1000)
         ),
         child: FloatingActionButton(
@@ -63,11 +64,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        color: themes.isdark() ? MyTheme.LightBlack : Colors.white,
         shape:const CircularNotchedRectangle(),
         notchMargin: 10,
         child: BottomNavigationBar(
-          backgroundColor: Theme.of(context).primaryColor.withAlpha(0),
+
           currentIndex: Index,
           elevation: 0,
           onTap: (value) {

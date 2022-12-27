@@ -5,7 +5,10 @@ class Settings_Tap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.green,
+      margin: EdgeInsets.only(top: 100),
+      child: Column(
+
+      ),
     ) ;
   }
 }

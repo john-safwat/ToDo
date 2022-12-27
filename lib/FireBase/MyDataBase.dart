@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code/FireBase/Model.dart';
 import 'package:code/utils/Dialogs_utils_class.dart';
+import 'package:flutter/cupertino.dart';
 
 class MyDataBase {
 
@@ -19,8 +20,8 @@ class MyDataBase {
     return doc.set(task);
   }
 
-  static Stream<QuerySnapshot<Task>> getTaskDataStream(){
-    return getTaskCollection().snapshots();
+  static Stream<QuerySnapshot<Task>> getTaskDataStream(DateTime dateTime){
+    return getTaskCollection().where('Date' , isEqualTo: dateTime.millisecondsSinceEpoch).snapshots();
   }
 
   static DeleteTask(Task task){
