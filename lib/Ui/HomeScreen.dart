@@ -3,6 +3,7 @@ import 'package:code/Theme/MyTheme.dart';
 import 'package:code/Ui/Taps/Settings_Tap.dart';
 import 'package:code/Ui/Taps/taskslist.dart';
 import 'package:code/utils/Dialogs_utils_class.dart';
+import 'package:code/utils/extention.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -17,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int Index = 0;
-  DateTime date = DialogUtils.DateOnly(DateTime.now());
+  DateTime date = DateTime.now().DateOnly(DateTime.now());
   List<Widget> taps = [Tasks_List_Tap(), Settings_Tap()];
 
   TextEditingController Title = TextEditingController();
@@ -183,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   GestureDetector(
                     child: Text("${DateFormat.yMd().format(date)}",style: Theme.of(context).textTheme.headline2,textAlign: TextAlign.center,),
                     onTap: ()async{
-
+                      ShowDatePicker();
                     },
                   ),
                   const Spacer(),
