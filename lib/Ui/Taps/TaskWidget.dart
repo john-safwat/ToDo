@@ -64,7 +64,7 @@ class TaskWidget extends StatelessWidget {
           child: Container(
             padding:const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: themes.isdark() ? MyTheme.LightBlack : Colors.white,
+              color: themes.isdark()? MyTheme.LightBlack : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             height: 110,
