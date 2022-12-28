@@ -35,14 +35,15 @@ class TaskWidget extends StatelessWidget {
               SlidableAction(
                 flex: 2,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20) ,bottomLeft: Radius.circular(20)),
-                onPressed: (BuildContext) async {
+                onPressed: (BuildContext){
                   DialogUtils.showMessage(
                     message: "Are You Sure You Want TO Delete This Task",
                     context: context,
                     posActiontitle: "Yes",
                     posAction: ()async{
                       DialogUtils.showDialogeMessage(Message: "Loading....", context: context);
-                      await MyDataBase.DeleteTask(task);
+                      MyDataBase.DeleteTask(task);
+                      print("test");
                       DialogUtils.hideDialogMessage(context: context);
                       DialogUtils.showMessage(
                         message: "Task Deleted ",

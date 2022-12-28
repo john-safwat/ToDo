@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: FloatingActionButton(
           onPressed: (){
-            showTaskModalButtomSheet(context);
+            showTaskModalButtomSheet(context , themes);
           },
           child:const Icon(Icons.add , color: Colors.white, size: 34,),
           backgroundColor: Theme.of(context).primaryColor,
@@ -89,10 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-  Future<void> showTaskModalButtomSheet(BuildContext context){
+  Future<void> showTaskModalButtomSheet(BuildContext context , themeprovider themes){
     return showModalBottomSheet(
         context: context,
         isScrollControlled: true,
+        backgroundColor: themes.isdark()? MyTheme.DarkBlue : Colors.white,
         shape:const RoundedRectangleBorder(borderRadius: BorderRadius.only(
           topRight: Radius.circular(20),
           topLeft:  Radius.circular(20)
@@ -117,18 +118,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                       return null;
                     },
+                    style: Theme.of(context).textTheme.headline4,
                     decoration: InputDecoration(
                       contentPadding:const EdgeInsets.all(20),
-                      prefixIcon:const Icon(Icons.label) ,
-                      label:const Text('Task Lable'),
-                      enabledBorder:const OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Colors.black87, width: 1.0),
+                      prefixIcon: Icon(Icons.label , color: themes.isdark()?Colors.white : Colors.grey,) ,
+                      label:Text('Task Lable' , style : Theme.of(context).textTheme.headline4 ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: !themes.isdark() ? MyTheme.LightBlack : Colors.white, width: 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                        borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
                         borderRadius:const BorderRadius.all(Radius.circular(5)),
                       ),
                       focusedErrorBorder: const OutlineInputBorder(
@@ -147,22 +147,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if(value == null || value.isEmpty){
-                        return "Invalid Task Details";
+                        return "Invalid Task Lable";
                       }
                       return null;
                     },
+                    style: Theme.of(context).textTheme.headline4,
                     decoration: InputDecoration(
                       contentPadding:const EdgeInsets.all(20),
-                      prefixIcon:const Icon(Icons.label) ,
-                      label:const Text('Task Lable'),
-                      enabledBorder:const OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Colors.black87, width: 1.0),
+                      prefixIcon: Icon(Icons.text_snippet_outlined , color: themes.isdark()?Colors.white : Colors.grey,) ,
+                      label:Text('Task Details' , style : Theme.of(context).textTheme.headline4 ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: !themes.isdark() ? MyTheme.LightBlack : Colors.white, width: 1.0),
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+                        borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
                         borderRadius:const BorderRadius.all(Radius.circular(5)),
                       ),
                       focusedErrorBorder: const OutlineInputBorder(
@@ -200,6 +199,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             DialogUtils.showDialogeMessage(Message: "Loading....", context: context);
                             Task task = Task(id: "", Title: Title.text, Discription: Details.text, Date: date.millisecondsSinceEpoch);
                             await MyDataBase.insertintodatabase(task);
+                            Title.text = '';
+                            Details.text = '';
+                            date = DateTime.now().DateOnly(DateTime.now());
                             DialogUtils.hideDialogMessage(context: context);
                             Navigator.pop(context);
                           },
@@ -208,20 +210,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     },
 
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.done_rounded , color: Colors.white,),
-                        const SizedBox(width: 10,),
-                        Text("Add" , style: Theme.of(context).textTheme.headline1?.copyWith(fontWeight: FontWeight.w500),)
-                      ],
-                    ),
-
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
                         padding: MaterialStateProperty.all(EdgeInsets.all(10)),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)))
+                    ),
+
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.done_rounded , color: Colors.white,),
+                        const SizedBox(width: 10,),
+                        Text("Add" , style: Theme.of(context).textTheme.headline1?.copyWith(fontWeight: FontWeight.w500),)
+                      ],
                     ),
                   ),
                 ],
@@ -232,40 +234,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
   Future<void> ShowDatePicker()async{
-    return showDatePicker(
+    var userselecteddate = await showDatePicker(
         context: context,
         initialDate: date,
         firstDate: DateTime.now(),
         lastDate: DateTime.now().add(Duration(days: 365)),
-    ).then((value) {
+    );
+    if (userselecteddate == null ) {
+        return;
+    }
+    else {
+      date = userselecteddate;
       setState(() {
-        date = value!;
+
       });
-    });
+    }
   }
 }
-
-//
-// TextField(
-// onChanged: (value) {
-// //Do something with the user input.
-// },
-// decoration: InputDecoration(
-// hintText: 'Enter your password.',
-// contentPadding:
-// EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-// border: OutlineInputBorder(
-// borderRadius: BorderRadius.all(Radius.circular(32.0)),
-// ),
-// enabledBorder: OutlineInputBorder(
-// borderSide:
-// BorderSide(color: Colors.lightBlueAccent, width: 1.0),
-// borderRadius: BorderRadius.all(Radius.circular(32.0)),
-// ),
-// focusedBorder: OutlineInputBorder(
-// borderSide:
-// BorderSide(color: Colors.lightBlueAccent, width: 2.0),
-// borderRadius: BorderRadius.all(Radius.circular(32.0)),
-// ),
-// ),
-// ),
