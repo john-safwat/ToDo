@@ -74,10 +74,10 @@ Light
 <img src = "https://firebasestorage.googleapis.com/v0/b/todo-9b83f.appspot.com/o/splash.png?alt=media&token=589faf98-e6b0-49fa-90ac-c43b3d2abc71" width = "100px">
 <img src = "https://firebasestorage.googleapis.com/v0/b/todo-9b83f.appspot.com/o/home.png?alt=media&token=eccfa523-8251-4634-abbc-005cd6b8f56c" width = "100px">
 <img src = "https://firebasestorage.googleapis.com/v0/b/todo-9b83f.appspot.com/o/task%20delete.png?alt=media&token=275e2c52-ec63-4a78-84b7-5f74578053fe" width = "100px">
-<img src = "https://storage.googleapis.com/todo-9b83f.appspot.com/task%20done.png?GoogleAccessId=service-401547607741@gcp-sa-firebasestorage.iam.gserviceaccount.com&Expires=1689116008&Signature=YxVvVZiE23/pkggZUXc04z0shyyB98KwF8QBv%2BgS87gJxi9Ub4ncC0Hksys/TVflQTstuKoCLEPKc95klY4YhPnWaZGucFvH9OfABk%2BUvksyyOIFkM48dFygcbIMDuCulK0q1UfG8PSPqcYIRVF6wkEoAbGq26K3lId3eZEPYns51yx9DraoH/3YlAQC2a3wZ1p7gGS7LaynyzFiwZ2wLSCotV0f01pO9sq3GmiJ5oW%2B9M71fUZBXKslcP0KYagDm2hbvKpHMwq/vflXEOvKxGSnTGsN7qMrZUwkujAZISvFpbv%2BNK/MgTs4TGOpEnpHmUZjyAy%2BoWHUZhU0ElFNWQ%3D%3D" width = "100px">
+<img src = "https://firebasestorage.googleapis.com/v0/b/todo-9b83f.appspot.com/o/task%20done.png?alt=media&token=7a1a530d-bf57-49ab-aa8d-daab3b780b79" width = "100px">
 <img src = "https://firebasestorage.googleapis.com/v0/b/todo-9b83f.appspot.com/o/add%20new%20task.png?alt=media&token=bdaa938a-dc32-4808-94ab-49b953311497" width = "100px">
 <img src = "https://firebasestorage.googleapis.com/v0/b/todo-9b83f.appspot.com/o/home%20%E2%80%93%202.png?alt=media&token=df27c9fc-de8d-4e5d-aab9-79f314424fa7" width = "100px">
-<img src = "https://storage.googleapis.com/todo-9b83f.appspot.com/settings.png?GoogleAccessId=service-401547607741@gcp-sa-firebasestorage.iam.gserviceaccount.com&Expires=1689115995&Signature=YOFUCaDhM%2B8Dj%2BKIhOgaGDg0Af62YaTALCtq%2Brol2vxZl7P80KVhCrMUus/G8V6LoZHSECaoaIe/sFa8C4owLOJlJbU9ZokFFmY54c8CO48daJY%2B4V9HyksMLubv6ww34DgaYSqNPyKvYrG%2B0BX8mwHWba0iANWDLPSRDPS8/Mh%2BCgEtS1Hx0shuPBn7ZpTCKaJUOkGdTfDb04YnputQIVuHn6UvbF66lVk2UrW/coQDN9IcksDMKoJMJngGfDNknCQdnwbeh3wsBjpnLi4gj2RhL5yXQ7ek%2BFCPdA2ovp89Ol5DKth1YVLps0vgEdXuIah8STULAScXkY1er9TIfw%3D%3D" width = "100px">
+<img src = "https://firebasestorage.googleapis.com/v0/b/todo-9b83f.appspot.com/o/task%20done.png?alt=media&token=7a1a530d-bf57-49ab-aa8d-daab3b780b79" width = "100px">
 </div>
 
 ````
