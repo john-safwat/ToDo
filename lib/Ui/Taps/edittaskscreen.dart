@@ -37,7 +37,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
     var mediaquery = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).accentColor,
+      backgroundColor: Theme.of(context).hintColor,
       appBar: AppBar(
         title: Text("To Do List"),
         elevation: 0,

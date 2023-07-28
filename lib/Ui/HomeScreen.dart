@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var mediaquery = MediaQuery.of(context).size;
     var themes = Provider.of<themeprovider>(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).accentColor,
+      backgroundColor: Theme.of(context).hintColor,
       appBar: AppBar(
         title: Text("  To Do List" ),
       ),

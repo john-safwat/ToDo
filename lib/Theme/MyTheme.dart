@@ -10,7 +10,7 @@ class MyTheme {
 
   static ThemeData LightTheme = ThemeData(
     primaryColor: Blue,
-    accentColor: Cyan,
+    hintColor: Cyan,
     appBarTheme:const AppBarTheme(
       elevation: 0,
       titleTextStyle: TextStyle(color: Colors.white , fontSize: 22, fontWeight: FontWeight.bold),
@@ -45,7 +45,7 @@ class MyTheme {
   );
   static ThemeData DarkTheme = ThemeData(
     primaryColor: Blue,
-    accentColor: DarkBlue,
+    hintColor: DarkBlue,
     appBarTheme:const AppBarTheme(
       backgroundColor: Blue,
       elevation: 0,
